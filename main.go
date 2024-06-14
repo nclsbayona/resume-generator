@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/nclsbayona/resume-generator/engine"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	fmt.Println(engine.BuildResume())
 }
