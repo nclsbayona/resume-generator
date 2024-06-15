@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"github.com/cbroglie/mustache"
 	"gopkg.in/yaml.v3"
 	"os"
 )
@@ -25,7 +24,6 @@ func BuildResume() (rendered string) {
 		panic("No configuration file provided!")
 	}
 	full := start()
-
-	rendered, _ = mustache.Render("{{Render}}", full)
+	rendered = full.Render()
 	return rendered
 }
