@@ -1,4 +1,8 @@
-name: Nicolas Bayona
+templates:
+  full: "templates/full.mustache"
+  experience: "default"
+  achievements: "default"
+name: "Nicolas Bayona"
 experiences:
   - title: "Software Engineer"
     company: "Company A"
