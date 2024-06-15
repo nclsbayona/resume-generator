@@ -1,0 +1,22 @@
+name: Acknowledge the Contributors
+on: 
+  pull_request:
+    branches: 
+      - 'main'
+    types: 
+      - 'closed'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch'}}
+    runs-on: ubuntu-latest
+    steps:
+        - name: Contribute List
+          uses: akhilmhdh/contributors-readme-action@v2.3.6
+          with:
+            columns_per_row: 2
+            use_username: true
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
