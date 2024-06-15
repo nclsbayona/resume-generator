@@ -53,7 +53,7 @@ func (f FullResume) Render() string {
 	}
 	rendered, err := template.Render(extraInfo)
 	if err != nil {
-		panic(err)\
+		panic(err)
 	}
 	return rendered
 }
