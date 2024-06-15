@@ -1,0 +1,35 @@
+{
+  "branches": ["main"],
+  "repositoryUrl": "https://github.com/nclsbayona/resume-generator.git",
+  "plugins": [
+    [
+        '@semantic-release/commit-analyzer', {
+            preset: 'angular',
+            releaseRules: [
+                { breaking: true, release: 'major' },
+                { type: 'feat', release: 'minor' },
+                { type: 'fix', release: 'patch' },
+                { scope: 'deps', release: 'patch' },
+                { type: 'docs', scope: "README", release: 'patch' },
+                { type: 'chore', release: 'patch' },
+            ],
+        },
+    ],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md",
+        "changelogTitle": "# My Sample Changelog"
+      }
+    ],
+    [
+      '@semantic-release/git',
+      {
+        message:
+          'chore(release): Release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+      },
+    ],
+  ]
+}
