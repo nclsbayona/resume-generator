@@ -23,13 +23,13 @@ func (f FullResume) Render() string {
 	if f.Templates["experience"] != "" {
 		if f.Templates["experience"] == "default" {
 			log.Println("Using default template file for experience!")
-			f.Templates["experience"] = "templates/experience.mustache"
+			f.Templates["experience"] = "templates/experience.html.mustache"
 		} else {
 			log.Println("Using custom template file for experience!")
 		}
 		if f.Templates["achievements"] == "default" {
 			log.Println("Using default template file for achievements!")
-			f.Templates["achievements"] = "templates/achievements.mustache"
+			f.Templates["achievements"] = "templates/achievements.html.mustache"
 		} else {
 			log.Println("No provided template file for achievements!")
 		}
@@ -45,7 +45,7 @@ func (f FullResume) Render() string {
 	templateFile := f.Templates["full"]
 	if templateFile == "" {
 		log.Println("No template file for the full YAML generation provided. Using default one!")
-		templateFile = "templates/full.mustache"
+		templateFile = "templates/full.html.mustache"
 	}
 	template, err := mustache.ParseFile(templateFile)
 	if err != nil {
@@ -53,7 +53,7 @@ func (f FullResume) Render() string {
 	}
 	rendered, err := template.Render(extraInfo)
 	if err != nil {
-		panic(err)
+		panic(err)\
 	}
 	return rendered
 }

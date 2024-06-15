@@ -1,5 +1,5 @@
 templates:
-  full: "templates/full.mustache"
+  full: "templates/full.html.mustache"
   experience: "default"
   achievements: "default"
 name: "Nicolas Bayona"
