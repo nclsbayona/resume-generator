@@ -2,7 +2,6 @@ package engine
 
 import (
 	"log"
-
 	"github.com/cbroglie/mustache"
 )
 
