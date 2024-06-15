@@ -28,7 +28,7 @@
       '@semantic-release/git',
       {
         message:
-          'chore(release): Release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+          'chore(release): :rocket: Release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
   ]
