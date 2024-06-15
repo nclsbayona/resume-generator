@@ -1,5 +1,12 @@
 # My Sample Changelog
 
+## [1.0.1](https://github.com/nclsbayona/resume-generator/compare/v1.0.0...v1.0.1) (2024-06-15)
+
+
+### Bug Fixes
+
+* :package: Update semantic-release file ([446b0cb](https://github.com/nclsbayona/resume-generator/commit/446b0cb50b2b5b16e4cf4bae8bdcb1828cd5a530))
+
 # 1.0.0 (2024-06-15)
 
 
