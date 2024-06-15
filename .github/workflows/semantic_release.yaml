@@ -1,0 +1,35 @@
+name: Semantic Release Workflow
+on:
+    schedule:
+        - cron: '0 0 1 * *'
+    push:
+        branches:
+            - main
+        paths:
+            - '.releaserc'
+
+permissions:
+    issues: write
+    id-token: write
+    contents: write
+    pull-requests: write
+  
+concurrency:
+    group: "release"
+    cancel-in-progress: false
+  
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '20'
+            - name: Install dependencies
+              run: npm install
+            - name: Semantic Release Run
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npx semantic-release
