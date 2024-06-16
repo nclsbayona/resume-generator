@@ -1,5 +1,5 @@
 <h1>resume-generator</h1>
-<h2>Contents</h2>
+<h2>Overview</h2>
 
 <ol>
   <li>
