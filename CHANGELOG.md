@@ -1,3 +1,13 @@
+# My Changelog
+
+## [1.0.3](https://github.com/nclsbayona/resume-generator/compare/v1.0.2...v1.0.3) (2024-06-16)
+
+
+### Bug Fixes
+
+* :package: Update release file ([6ee8213](https://github.com/nclsbayona/resume-generator/commit/6ee8213e344d4ed116d822fd8ea26c641f61c088))
+* :pencil2: Fix typo that causes app to not work ([45dfbc5](https://github.com/nclsbayona/resume-generator/commit/45dfbc52d1136320ddfc1d1867b95e41bf0cde57))
+
 # My Sample Changelog
 
 ## [1.0.2](https://github.com/nclsbayona/resume-generator/compare/v1.0.1...v1.0.2) (2024-06-15)
