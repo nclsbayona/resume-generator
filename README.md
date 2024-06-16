@@ -11,12 +11,24 @@
       <hr />
     </details>
   </li>
+
   <li>
     <details name="reason">
       <summary>
         <h3>Why this project?</h3>
       </summary>
-      <p>I know there exist a lot of resume generators online made using different strategies, languages, formats, colors and so on. However I recently found myself struggling to find a resume generator I could completely personalize the way I wanted to, also I think Go can be a good tool to use in this case since it has native support for templating (At first I was hesitant to use the native libraries because I wanted to use something I had already worked with (Note I'm talking about the Mustache templating engine) but I think not having external dependencies is always a good idea (I know I use other external dependencies already but still I want to keep the number as minimal as possible) )</p>
+      <p>I know there exist a lot of resume generators online made using different strategies, languages, formats, colors and so on. However I recently found myself struggling to find a resume generator I could completely personalize the way I wanted to do I decided to build one.
+Also I think Go can be a good tool to use in this case since it has native support for templating (At first I was hesitant to use the native libraries because I wanted to use something I had already worked with (Note I'm talking about the Mustache templating engine) but I think not having external dependencies is always a good idea (I know I use other external dependencies already but still I want to keep the number as minimal as possible) ) so I said <i>Why not?</i></p>
+      <hr />
+    </details>
+  </li>
+
+  <li>
+    <details name="contributing">
+      <summary>
+        <h3>How can I contribute?</h3>
+      </summary>
+      <p>If you want to contribute to this project, I would really appreciate that. Remember you don't necessarily need to code to contribute, you can test the application in a more professional way that what I do, you can add documentation for the usage of the application or even only talking about features that could be important in the project is a great way to contribute. I really value contributors so I include them in this README file.</p>
       <hr />
     </details>
   </li>
