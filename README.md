@@ -7,7 +7,7 @@
       <summary>
         <h3>What is this repository?</h3>
       </summary>
-      <span>This is a resume generator made using Go and the mustache templating engine.</span>
+      <span>This is a resume generator made using Go.</span>
       <hr />
     </details>
   </li>
