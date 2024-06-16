@@ -10,7 +10,8 @@
       <span>This is a resume generator made using Go.</span>
       <hr />
     </details>
-    
+  </li>
+  <li>
     <details name="reason">
       <summary>
         <h3>Why this project?</h3>
@@ -18,7 +19,6 @@
       <p>I know there exist a lot of resume generators online made using different strategies, languages, formats, colors and so on. However I recently found myself struggling to find a resume generator I could completely personalize the way I wanted to, also I think Go can be a good tool to use in this case since it has native support for templating (At first I was hesitant to use the native libraries because I wanted to use something I had already worked with (Note I'm talking about the Mustache templating engine) but I think not having external dependencies is always a good idea (I know I use other external dependencies already but still I want to keep the number as minimal as possible) )</p>
       <hr />
     </details>
-
   </li>
 </ol>
 
