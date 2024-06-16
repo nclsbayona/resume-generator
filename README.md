@@ -37,7 +37,7 @@ Also I think Go can be a good tool to use in this case since it has native suppo
 
 <h2>Contributors</h2>
 <h3>Users</h3>
-<!-- readme: contributors -start -->
+<!-- readme: contributors,collaborators -start -->
 <table>
 	<tbody>
 		<tr>
@@ -58,7 +58,7 @@ Also I think Go can be a good tool to use in this case since it has native suppo
 		</tr>
 	<tbody>
 </table>
-<!-- readme: contributors -end -->
+<!-- readme: contributors,collaborators -end -->
 
 <h3>Bots</h3>
 <!-- readme: bots -start -->
