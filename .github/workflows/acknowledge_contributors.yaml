@@ -6,8 +6,14 @@ on:
     types: 
       - 'closed'
   workflow_dispatch:
+
 permissions:
   contents: write
+
+concurrency:
+  group: "acknowledge-contributors"
+  cancel-in-progress: false
+
 jobs:
   build:
     if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch'}}
