@@ -4,7 +4,11 @@
   <summary>
     <h2>Workflows statuses</h2>
   </summary>
-  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/codeql/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/acknowledge_contributors.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/semantic_release.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/codeql.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/auto_dependabot.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/mind_language.yaml/badge.svg" />
   <hr />
 </details>
 <details name="main">
