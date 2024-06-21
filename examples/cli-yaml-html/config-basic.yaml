@@ -1,0 +1,6 @@
+generator: "html"
+injector: "yaml"
+commander: "cli"
+template: "examples/cli-yaml-html/templates/basic"
+input_file_name: "examples/cli-yaml-html/resume.yaml"
+output_file_name: "examples/cli-yaml-html/resume-basic.html"
