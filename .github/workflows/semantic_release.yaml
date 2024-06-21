@@ -32,6 +32,7 @@ jobs:
               run: npm install
             - name: Semantic Release Run
               env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 CONTAINER_REGISTRY: ghcr.io
                 CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
                 CONTAINER_REGISTRY_REPOSITORY: ${{ github.repository }}
