@@ -8,6 +8,13 @@ on:
         paths:
             - '.releaserc'
 
+permissions:
+  issues: write
+  packages: write
+  id-token: write
+  contents: write
+  pull-requests: write
+  
 concurrency:
     group: "release"
     cancel-in-progress: false
@@ -27,8 +34,8 @@ jobs:
               run: npm install
             - name: Semantic Release Run
               env:
-                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
                 CONTAINER_REGISTRY: ghcr.io
-                CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CI_GITHUB_TOKEN }}
+                CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
                 CONTAINER_REGISTRY_REPOSITORY: ${{ github.repository }}
               run: npx semantic-release
