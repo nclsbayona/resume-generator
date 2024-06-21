@@ -15,6 +15,11 @@
             ],
         },
     ],
+    [
+      "@semantic-release/exec", {
+        "publishCmd": "make version=${nextRelease.version} registry_url=${process.env.CONTAINER_REGISTRY} password=${process.env.CONTAINER_REGISTRY_PASSWORD} repository_name=${process.env.CONTAINER_REGISTRY_REPOSITORY}"
+      }
+    ],
     "@semantic-release/release-notes-generator",
     "@semantic-release/github",
     [
