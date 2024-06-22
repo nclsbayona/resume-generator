@@ -17,4 +17,4 @@ release: test
 
 test:
 	echo "Building test container"
-	docker build --target dev-builder --plain=text -t "${registry_url}/${username}/${repository_name}:test" -f Dockerfile .
+	docker build --target dev-builder --progress=plain -t "${registry_url}/${username}/${repository_name}:test" -f Dockerfile .
