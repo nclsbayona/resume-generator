@@ -22,3 +22,4 @@ WORKDIR /app
 COPY --from=dev-builder /app/main .
 ENTRYPOINT ["./main","-c"]
 CMD ["config.yaml"]
+# Keep in mind you would need to add your templates to the running container

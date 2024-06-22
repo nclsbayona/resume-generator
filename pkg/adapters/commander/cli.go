@@ -2,7 +2,6 @@ package commander
 
 import (
 	"fmt"
-
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
 )
