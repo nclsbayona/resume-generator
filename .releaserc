@@ -18,7 +18,7 @@
     ],
     [
       "@semantic-release/exec", {
-        "publishCmd": "make version=${nextRelease.version} registry_url=${process.env.CONTAINER_REGISTRY} password=${process.env.CONTAINER_REGISTRY_PASSWORD} repository_name=${process.env.CONTAINER_REGISTRY_REPOSITORY}"
+        "publishCmd": "./release.sh ${nextRelease.version} ${process.env.CONTAINER_REGISTRY_PASSWORD} ${process.env.CONTAINER_REGISTRY} ${process.env.CONTAINER_REGISTRY_REPOSITORY}"
       }
     ],
     "@semantic-release/release-notes-generator",
