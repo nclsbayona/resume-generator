@@ -9,7 +9,7 @@ release: test
 	echo "New release"
 	echo "Release of version: ${version}"
 	docker build --target prod -t "${registry_url}/${username}/${repository_name}:${version}" -f Dockerfile .
-	docker tag "${registry_url}/${username}/${repository_name}:${version}" "${registry_url}/${username}/${repository_name}:latest" -f Dockerfile .
+	docker tag "${registry_url}/${username}/${repository_name}:${version}" "${registry_url}/${username}/${repository_name}:latest"
 	echo "${password}" | docker login -u "${username}" --password-stdin "${registry_url}"
 	docker push "${registry_url}/${username}/${repository_name}:${version}"
 	docker push "${registry_url}/${username}/${repository_name}:latest"
