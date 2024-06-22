@@ -10,7 +10,7 @@ COPY pkg ./pkg
 COPY go.mod .
 COPY go.sum .
 RUN go mod tidy
-RUN go test -coverprofile=coverage.out
+RUN go test ./pkg/**/* -coverprofile=coverage.out
 RUN go build -o main ./cmd/main.go
 
 
