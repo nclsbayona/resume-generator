@@ -6,7 +6,7 @@
 ##########
 
 release: test
-    username := $(shell echo $(repository_name) | awk -F/ '{print $$1}')
+        username := $(shell echo $(repository_name) | awk -F/ '{print $$1}')
 	echo "New release"
 	echo "Release of version: ${version}"
 	docker build --target prod -t "${registry_url}/${username}/${repository_name}:${version}" -f Dockerfile .
