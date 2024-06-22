@@ -24,14 +24,15 @@ func (c *CLI) SetInjector(injector *ports.Injector) {
 func (c *CLI) RunCommand(logger *domain.Logger) *string {
 	if c.prefix == nil {
 		c.prefix = new(string)
-		*c.prefix = ""
+		*c.prefix = "CLI:"
 	}
-	fmt.Println(*c.prefix + " Enter command: ")
+
+	fmt.Println(*c.prefix + " Enter template name: ")
 	var command string
 	_, err := fmt.Scanln(&command)
 	for err != nil {
 		logger.Warn("Error reading command: " + err.Error())
-		logger.Info(*c.prefix + " Enter command: ")
+		logger.Info(*c.prefix + " Enter template name: ")
 		_, err = fmt.Scanln(&command)
 	}
 	

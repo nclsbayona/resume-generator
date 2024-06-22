@@ -1,0 +1,36 @@
+name: Run app tests
+on:
+    schedule:
+      - cron: '0 0 28 * *'
+    workflow_dispatch:
+    push:
+      branches:
+        - main
+      paths:
+        - '**/*.go'
+    pull_request:
+      branches:
+        - main
+      paths:
+        - '**/*.go'
+
+permissions:
+  pull-requests: read
+  contents: read
+  
+concurrency:
+    group: "test-app"
+    cancel-in-progress: false
+  
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup-docker
+              uses: crazy-max/ghaction-setup-docker@v3.3.0
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                persist-credentials: false
+            - name: Run the tests
+              run: make test
