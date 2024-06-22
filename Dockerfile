@@ -3,7 +3,6 @@
 #              Build stage for dev and test            #
 ########################################################
 FROM docker.io/golang:1.22-alpine as dev-builder
-USER 35000
 WORKDIR /app
 COPY cmd ./cmd
 COPY pkg ./pkg
