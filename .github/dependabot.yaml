@@ -6,3 +6,7 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every day
       interval: "daily"
+  - package-ecosystem: gomod
+    directory: "/"
+    schedule:
+      interval: daily
