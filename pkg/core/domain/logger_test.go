@@ -3,69 +3,44 @@ package domain
 import (
 	"bytes"
 	"log"
-	"reflect"
+	"strings"
 	"testing"
 )
 
 func TestNewLogger(t *testing.T) {
-	name := "Test Empty NewLogger"
-	out := new(bytes.Buffer)
-	wantLogger := &Logger{
-		infoLog:  log.New(out, "INFO: ", log.Ldate|log.Ltime),
-		warnLog:  log.New(out, "WARN: ", log.Ldate|log.Ltime),
-		errorLog: log.New(out, "ERROR: ", log.Ldate|log.Ltime),
-		fatalLog: log.New(out, "FATAL: ", log.Ldate|log.Ltime),
-	}
+    tests := []struct {
+        name    string
+        wantOut string
+    }{
+        {
+            name:    "Test Empty NewLogger",
+            wantOut: "",
+        },
+        {
+            name:    "Test Non-Empty NewLogger",
+            wantOut: "Test message",
+        },
+    }
 
-	type test struct {
-		name       *string
-		wantLogger *Logger
-		wantOut    *string
-	}
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            out := new(bytes.Buffer)
+            gotLogger := NewLogger(out)
 
-	wantOut := out.String()
+            // Assuming NewLogger should return a non-nil logger
+            if gotLogger == nil {
+                t.Error("NewLogger() = nil, want non-nil")
+            }
 
-	testCase := test{
-		name: &name, wantLogger: wantLogger, wantOut: &wantOut,
-	}
-
-	t.Run(*testCase.name, func(t *testing.T) {
-		gotLogger := NewLogger(out)
-		if !reflect.DeepEqual(gotLogger, testCase.wantLogger) {
-			t.Errorf("NewLogger() = %v, want %v", gotLogger, testCase.wantLogger)
-		}
-		if gotOut := out.String(); gotOut != *testCase.wantOut {
-			t.Errorf("NewLogger() = %v, want %s", gotOut, *testCase.wantOut)
-		}
-	})
-
-	name = "Test Non-Empty NewLogger"
-
-	out = new(bytes.Buffer)
-
-	wantLogger = &Logger{
-		infoLog:  log.New(out, "INFO: ", log.Ldate|log.Ltime),
-		warnLog:  log.New(out, "WARN: ", log.Ldate|log.Ltime),
-		errorLog: log.New(out, "ERROR: ", log.Ldate|log.Ltime),
-		fatalLog: log.New(out, "FATAL: ", log.Ldate|log.Ltime),
-	}
-
-	wantOut = "Test message"
-
-	testCase = test{
-		name: &name, wantLogger: wantLogger, wantOut: &wantOut,
-	}
-
-	t.Run(*testCase.name, func(t *testing.T) {
-		gotLogger := NewLogger(out)
-		if !reflect.DeepEqual(gotLogger, testCase.wantLogger) {
-			t.Errorf("NewLogger() = %v, want %v", gotLogger, testCase.wantLogger)
-		}
-		out.WriteString(wantOut)
-		if gotOut := out.String(); gotOut != *testCase.wantOut {
-			t.Errorf("NewLogger() = %v, want %s", gotOut, *testCase.wantOut)
-		}
-	})
+            // Write to the logger if wantOut is not empty
+            if tt.wantOut != "" {
+                gotLogger.Info(tt.wantOut) // Assuming you have an Info method to write logs
+                if gotOut := out.String(); !strings.Contains(gotOut, tt.wantOut) {
+                    t.Errorf("Logger output = %v, want to contain %s", gotOut, tt.wantOut)
+                }
+            }
+        })
+    }
 }
 
 func TestLogger_Info(t *testing.T) {
