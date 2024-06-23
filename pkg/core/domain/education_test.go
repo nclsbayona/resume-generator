@@ -15,13 +15,13 @@ func TestNewEducation(t *testing.T) {
 		endDate     *string
 		description *string
 	}
-	
+
 	type test struct {
 		name      string
 		arguments args
 		want      *Education
 	}
-	
+
 	var (
 		name        = "Test Full NewEducation"
 		title       = "Test Title"
@@ -47,7 +47,7 @@ func TestNewEducation(t *testing.T) {
 			Description: arguments.description,
 		}
 	)
-	
+
 	testCase := test{name: name, arguments: arguments, want: want}
 	t.Run(testCase.name, func(t *testing.T) {
 		if got := NewEducation(testCase.arguments.title, testCase.arguments.institution, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description); !reflect.DeepEqual(got, testCase.want) {
