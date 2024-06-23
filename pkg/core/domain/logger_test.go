@@ -9,7 +9,7 @@ import (
 
 func TestNewLogger(t *testing.T) {
 	name := "Test Empty NewLogger"
-	out := &bytes.Buffer{}
+	out := new(bytes.Buffer)
 	wantLogger := &Logger{
 		infoLog:  log.New(out, "INFO: ", log.Ldate|log.Ltime),
 		warnLog:  log.New(out, "WARN: ", log.Ldate|log.Ltime),
