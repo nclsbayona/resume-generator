@@ -23,17 +23,25 @@ func NewLogger(out io.Writer) (logger *Logger) {
 }
 
 func (l *Logger) Info(msg string) {
-	l.infoLog.Println(msg)
+	if l.infoLog != nil {
+		l.infoLog.Println(msg)
+	}
 }
 
 func (l *Logger) Warn(msg string) {
-	l.warnLog.Println(msg)
+	if l.infoLog != nil {
+		l.warnLog.Println(msg)
+	}
 }
 
 func (l *Logger) Error(msg string) {
-	l.errorLog.Panic(msg)
+	if l.infoLog != nil {
+		l.errorLog.Panic(msg)
+	}
 }
 
 func (l *Logger) Fatal(msg string) {
-	l.fatalLog.Fatal(msg)
+	if l.infoLog != nil {
+		l.fatalLog.Fatal(msg)
+	}
 }
