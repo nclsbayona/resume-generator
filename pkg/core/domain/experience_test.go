@@ -5,75 +5,87 @@ import (
 	"testing"
 )
 
+func stringAchievement(s *string) *sAchievement {
+	achievement := sAchievement(s)
+	return &achievement
+}
 func TestNewExperience(t *testing.T) {
 
+	str := "Test"
+	achievement := stringAchievement(&str)
+
 	type args struct {
-		title       *string
-		institution *string
-		location    *string
-		startDate   *string
-		endDate     *string
-		description *string
+		title        *string
+		company      *string
+		location     *string
+		startDate    *string
+		endDate      *string
+		description  *string
+		achievements []*string
 	}
-	
+
 	type test struct {
 		name      string
-		arguments args
-		want      *Education
+		arguments *args
+		want      *Experience
 	}
-	
+
 	var (
-		name        = "Test Full NewEducation"
-		title       = "Test Title"
-		institution = "Test Institution"
-		location    = "Test Location"
-		startDate   = "Test Start Date"
-		endDate     = "Test End Date"
-		description = "Test Description"
-		arguments   = args{
-			title:       &title,
-			institution: &institution,
-			location:    &location,
-			startDate:   &startDate,
-			endDate:     &endDate,
-			description: &description,
+		name         = "Test Full NewExperience"
+		title        = "Test Title"
+		company      = "Test Company"
+		location     = "Test Location"
+		startDate    = "Test Start Date"
+		endDate      = "Test End Date"
+		description  = "Test Description"
+		achievements = []*string{&str}
+		arguments    = &args{
+			title:        &title,
+			company:      &company,
+			location:     &location,
+			startDate:    &startDate,
+			endDate:      &endDate,
+			description:  &description,
+			achievements: achievements,
 		}
-		want = &Education{
-			Title:       arguments.title,
-			Institution: arguments.institution,
-			Location:    arguments.location,
-			StartDate:   arguments.startDate,
-			EndDate:     arguments.endDate,
-			Description: arguments.description,
+		want = &Experience{
+			Title:        arguments.title,
+			Company:      arguments.company,
+			Location:     arguments.location,
+			StartDate:    arguments.startDate,
+			EndDate:      arguments.endDate,
+			Description:  arguments.description,
+			Achievements: []*sAchievement{achievement},
 		}
 	)
-	
+
 	testCase := test{name: name, arguments: arguments, want: want}
 	t.Run(testCase.name, func(t *testing.T) {
-		if got := NewEducation(testCase.arguments.title, testCase.arguments.institution, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description); !reflect.DeepEqual(got, testCase.want) {
-			t.Errorf("NewEducation() = %v, want %v", got, testCase.want)
+		if got := NewExperience(testCase.arguments.title, testCase.arguments.company, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description, testCase.arguments.achievements); !reflect.DeepEqual(got, testCase.want) {
+			t.Errorf("NewExperience() = %v, want %v", got, testCase.want)
 		}
 	})
 
-	name = "Test Empty NewEducation"
+	name = "Test Empty NewExperience"
 	title = ""
-	institution = ""
+	company = ""
 	location = ""
 	startDate = ""
 	endDate = ""
 	description = ""
+	achievements = nil
 	t.Run(testCase.name, func(t *testing.T) {
-		if got := NewEducation(testCase.arguments.title, testCase.arguments.institution, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description); !reflect.DeepEqual(got, testCase.want) {
-			t.Errorf("NewEducation() = %v, want %v", got, testCase.want)
+		if got := NewExperience(testCase.arguments.title, testCase.arguments.company, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description, testCase.arguments.achievements); !reflect.DeepEqual(got, testCase.want) {
+			t.Errorf("NewExperience() = %v, want %v", got, testCase.want)
 		}
 	})
 
-	name = "Test Nil NewEducation"
-	arguments = args{}
-	want = &Education{}
+	name = "Test Nil NewExperience"
+	arguments = &args{}
+	want = &Experience{}
 	t.Run(testCase.name, func(t *testing.T) {
-		if got := NewEducation(testCase.arguments.title, testCase.arguments.institution, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description); !reflect.DeepEqual(got, testCase.want) {
-			t.Errorf("NewEducation() = %v, want %v", got, testCase.want)
+		if got := NewExperience(testCase.arguments.title, testCase.arguments.company, testCase.arguments.location, testCase.arguments.startDate, testCase.arguments.endDate, testCase.arguments.description, testCase.arguments.achievements); !reflect.DeepEqual(got, testCase.want) {
+			t.Errorf("NewExperience() = %v, want %v", got, testCase.want)
 		}
 	})
 }

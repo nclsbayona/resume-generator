@@ -15,9 +15,13 @@ type Experience struct {
 func NewExperience(title *string, company *string, location *string, startDate *string, endDate *string, description *string, achievements []*string) *Experience {
 	// Convert achievements slice from []*string to []*sAchievement
 	var sAchievements []*sAchievement
-	for _, a := range achievements {
-		s := sAchievement(a)
-		sAchievements = append(sAchievements, &s)
+	if achievements == nil {
+		sAchievements = nil
+	} else {
+		for _, a := range achievements {
+			s := sAchievement(a)
+			sAchievements = append(sAchievements, &s)
+		}
 	}
 
 	return &Experience{
