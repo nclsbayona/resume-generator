@@ -1,5 +1,7 @@
 package commander
 
+// Options: properties_file_name (File to read the properties from)
+
 import (
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
@@ -58,7 +60,7 @@ func (c *Config) parseProperties() {
 	} else {
 		panic("Error reading file: " + *c.propertiesFileName)
 	}
-	os.Stdout.WriteString("Properties read successfully\n"+string(out)+"\n")
+	os.Stdout.WriteString("Properties read successfully\n" + string(out) + "\n")
 }
 
 func (c *Config) SetOptions(options ...*string) {

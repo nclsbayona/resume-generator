@@ -1,6 +1,6 @@
 package injector
 
-// Options: input_reading (File to read the resume from) 
+// Options: input_reading (File to read the resume from)
 
 import (
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
@@ -30,11 +30,28 @@ type sEducation struct {
 	Description *string `yaml:"description"`
 }
 
+type sContinousEducation struct {
+	Title       *string `yaml:"title"`
+	Institution *string `yaml:"institution"`
+	Location    *string `yaml:"location"`
+	Summary     *string `yaml:"summary"`
+	Date        *string `yaml:"date"`
+	Expire      *string `yaml:"expire"`
+}
+
+type sExtraInfo struct {
+	Label *string `yaml:"label"`
+	Value *string `yaml:"value"`
+}
+
 type sFullResumeYaml struct {
-	input_reading *string
-	Name          *string        `yaml:"full_name"`
-	Experiences   []*sExperience `yaml:"experiences"`
-	Education     []*sEducation  `yaml:"education"`
+	input_reading      *string
+	Summary            *string                `yaml:"summary"`
+	Name               *string                `yaml:"full_name"`
+	Experiences        []*sExperience         `yaml:"experiences"`
+	Education          []*sEducation          `yaml:"education"`
+	ExtraInfo          []*sExtraInfo          `yaml:"extra_info"`
+	ContinousEducation []*sContinousEducation `yaml:"continous_education"`
 }
 
 func (input *sFullResumeYaml) SetOptions(options ...*string) {
@@ -61,14 +78,31 @@ func (input *sFullResumeYaml) GetFull(logger *domain.Logger) *domain.FullResume 
 	}
 	logger.Info("Starting resume generation for \"" + *input.Name + "\"")
 
+	logger.Info("Experience: ")
+	for _, e := range input.Experiences {
+		logger.Info("Title: " + *e.Title + " Company: " + *e.Company + " Location: " + *e.Location + " Start Date: " + *e.StartDate + " End Date: " + *e.EndDate + " Description: " + *e.Description)
+	}
+	experience := convertExperience(input.Experiences)
+
 	logger.Info("Education: ")
 	for _, e := range input.Education {
 		logger.Info("Title: " + *e.Title + " Institution: " + *e.Institution + " Location: " + *e.Location + " Start Date: " + *e.StartDate + " End Date: " + *e.EndDate + " Description: " + *e.Description)
 	}
-	experience := convertExperience(input.Experiences)
-
 	education := convertEducation(input.Education)
-	var tmp_fullresume *domain.FullResume = domain.NewFullResume(input.Name, experience, education)
+
+	logger.Info("Extra Info: ")
+	for _, e := range input.ExtraInfo {
+		logger.Info("Label: " + *e.Label + " Value: " + *e.Value)
+	}
+	extraInfo := convertExtraInfo(input.ExtraInfo)
+
+	logger.Info("Continous Education: ")
+	for _, e := range input.ContinousEducation {
+		logger.Info("Title: " + *e.Title + " Institution: " + *e.Institution + " Location: " + *e.Location + " Summary: " + *e.Summary + " Date: " + *e.Date + " Expire: " + *e.Expire)
+	}
+	continousEducation := convertContinousEducation(input.ContinousEducation)
+
+	var tmp_fullresume *domain.FullResume = domain.NewFullResume(input.Summary, input.Name, experience, education, extraInfo, continousEducation)
 	return tmp_fullresume
 	//usecase.NewPrintResume(tmp_fullresume)
 	//print_usecase.SetGenerator(input.output)
@@ -98,4 +132,20 @@ func convertAchievement(achievement []*sAchievement) []*string {
 		achievements = append(achievements, &achievement)
 	}
 	return achievements
+}
+
+func convertExtraInfo(extraInfo []*sExtraInfo) []*domain.ExtraInformation {
+	var achievements []*domain.ExtraInformation = make([]*domain.ExtraInformation, 0)
+	for _, a := range extraInfo {
+		achievements = append(achievements, domain.NewExtraInformation(a.Label, a.Value))
+	}
+	return achievements
+}
+
+func convertContinousEducation(continousEducation []*sContinousEducation) []*domain.ContinousEducation {
+	var educations []*domain.ContinousEducation = make([]*domain.ContinousEducation, 0)
+	for _, e := range continousEducation {
+		educations = append(educations, domain.NewContinousEducation(e.Title, e.Institution, e.Location, e.Summary, e.Date, e.Expire))
+	}
+	return educations
 }

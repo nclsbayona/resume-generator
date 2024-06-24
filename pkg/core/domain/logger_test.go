@@ -8,39 +8,39 @@ import (
 )
 
 func TestNewLogger(t *testing.T) {
-    tests := []struct {
-        name    string
-        wantOut string
-    }{
-        {
-            name:    "Test Empty NewLogger",
-            wantOut: "",
-        },
-        {
-            name:    "Test Non-Empty NewLogger",
-            wantOut: "Test message",
-        },
-    }
+	tests := []struct {
+		name    string
+		wantOut string
+	}{
+		{
+			name:    "Test Empty NewLogger",
+			wantOut: "",
+		},
+		{
+			name:    "Test Non-Empty NewLogger",
+			wantOut: "Test message",
+		},
+	}
 
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            out := new(bytes.Buffer)
-            gotLogger := NewLogger(out)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			out := new(bytes.Buffer)
+			gotLogger := NewLogger(out)
 
-            // Assuming NewLogger should return a non-nil logger
-            if gotLogger == nil {
-                t.Error("NewLogger() = nil, want non-nil")
-            }
+			// Assuming NewLogger should return a non-nil logger
+			if gotLogger == nil {
+				t.Error("NewLogger() = nil, want non-nil")
+			}
 
-            // Write to the logger if wantOut is not empty
-            if tt.wantOut != "" {
-                gotLogger.Info(tt.wantOut) // Assuming you have an Info method to write logs
-                if gotOut := out.String(); !strings.Contains(gotOut, tt.wantOut) {
-                    t.Errorf("Logger output = %v, want to contain %s", gotOut, tt.wantOut)
-                }
-            }
-        })
-    }
+			// Write to the logger if wantOut is not empty
+			if tt.wantOut != "" {
+				gotLogger.Info(tt.wantOut) // Assuming you have an Info method to write logs
+				if gotOut := out.String(); !strings.Contains(gotOut, tt.wantOut) {
+					t.Errorf("Logger output = %v, want to contain %s", gotOut, tt.wantOut)
+				}
+			}
+		})
+	}
 }
 
 func TestLogger_Info(t *testing.T) {

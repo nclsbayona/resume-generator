@@ -64,8 +64,7 @@ func main() {
 	flag.StringVar(injector, "i", "yaml", "Injector to use. Default is yaml")
 	flag.StringVar(generator, "g", "html", "Generator to use. Default is html")
 	flag.StringVar(output_file, "o", "resume.html", "Output file. Default is resume.html")
-	
-	
+
 	flag.Parse()
 
 	var commander_properties []string = flag.Args()
@@ -73,7 +72,7 @@ func main() {
 	for _, arg := range commander_properties {
 		config_properties = append(config_properties, &arg)
 	}
-	
+
 	// Here dependency injection is supposed to happen
 	var generator_implementation *ports.Generator = generatorDI(generator)
 	var injector_implementation *ports.Injector = injectorDI(injector)

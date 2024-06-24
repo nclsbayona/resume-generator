@@ -3,10 +3,10 @@ package generator
 // Options: template (Template directory to use)
 
 import (
-	"os"
-	"text/template"
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
+	"os"
+	"text/template"
 )
 
 type AuxiliaryWriter struct {
@@ -20,13 +20,16 @@ func (a AuxiliaryWriter) Write(p []byte) (n int, err error) {
 }
 
 type AuxiliaryRender struct {
-	Name       string
-	Experience string
-	Education  string
+	Summary            *string
+	Name               *string
+	Experience         *string
+	Education          *string
+	ExtraInfo          *string
+	ContinousEducation *string
 }
 
-func newAuxiliaryRender(name string) *AuxiliaryRender {
-	return &AuxiliaryRender{Name: name}
+func newAuxiliaryRender(name *string, summary *string) *AuxiliaryRender {
+	return &AuxiliaryRender{Name: name, Summary: summary}
 }
 
 type WriteHTML struct {
@@ -50,6 +53,62 @@ func listTemplateDirectory(template_location *string) ([]*string, error) {
 		files = append(files, &fileName)
 	}
 	return files, nil
+}
+
+func renderExtraInfo(extra_info *domain.ExtraInformation, template_location *string, logger *domain.Logger) (rendered *string) {
+	rendered = new(string)
+	tmpl, err := template.ParseFiles(*template_location)
+	if err != nil {
+		logger.Warn("Error parsing template for experience " + err.Error())
+	}
+	var auxiliary_writer AuxiliaryWriter = AuxiliaryWriter{variable: rendered}
+	logger.Info("Rendering " + *extra_info.Label + " with value " + *extra_info.Value)
+	err = tmpl.Execute(auxiliary_writer, extra_info)
+	if err != nil {
+		logger.Warn("Error executing template for experience " + err.Error())
+	}
+	return
+}
+
+func renderExtraInfos(extra_infos []*domain.ExtraInformation, template *string, logger *domain.Logger) (rendered *string) {
+	temporary_rendered := make([]*string, len(extra_infos))
+	for i, info := range extra_infos {
+		temporary_rendered[i] = renderExtraInfo(info, template, logger)
+	}
+	rendered = new(string)
+	for _, rendered_educations := range temporary_rendered {
+		tmp := *rendered + *rendered_educations + "\n"
+		rendered = &tmp
+	}
+	return
+}
+
+func renderContinousEducation(continous_education *domain.ContinousEducation, template_location *string, logger *domain.Logger) (rendered *string) {
+	rendered = new(string)
+	tmpl, err := template.ParseFiles(*template_location)
+	if err != nil {
+		logger.Warn("Error parsing template for experience " + err.Error())
+	}
+	var auxiliary_writer AuxiliaryWriter = AuxiliaryWriter{variable: rendered}
+	logger.Info("Rendering continous education " + *continous_education.Title + " at " + *continous_education.Institution + " gotten " + *continous_education.Date + " and valid to " + *continous_education.Expire + " with summary " + *continous_education.Summary)
+	err = tmpl.Execute(auxiliary_writer, continous_education)
+	if err != nil {
+		logger.Warn("Error executing template for experience " + err.Error())
+	}
+	return
+}
+
+func renderContinousEducations(continous_educations []*domain.ContinousEducation, template *string, logger *domain.Logger) (rendered *string) {
+	temporary_rendered := make([]*string, len(continous_educations))
+	for i, info := range continous_educations {
+		temporary_rendered[i] = renderContinousEducation(info, template, logger)
+	}
+	rendered = new(string)
+	for _, rendered_educations := range temporary_rendered {
+		tmp := *rendered + *rendered_educations + "\n"
+		rendered = &tmp
+	}
+	return
 }
 
 func renderEducation(education *domain.Education, template_location *string, logger *domain.Logger) (rendered *string) {
@@ -130,29 +189,55 @@ func (w *WriteHTML) GetFull(logger *domain.Logger) (rendered *string) {
 		logger.Error("No templates found for template: " + *w.template)
 	}
 
-	var auxiliary_renderable *AuxiliaryRender = newAuxiliaryRender(*w.resume.Name)
+	var auxiliary_renderable *AuxiliaryRender = newAuxiliaryRender(w.resume.Name, w.resume.Summary)
 	// Render experiences
 	string_to_search := "experience.html.tpl"
 	if index, ok := sliceContains(template_contents, &string_to_search); ok {
 		logger.Info("Rendering experience with template " + *template_contents[index])
 		tmp_experiences := *w.template + "/" + *template_contents[index]
-		auxiliary_renderable.Experience = *renderExperiences(w.resume.Experiences, &tmp_experiences, logger)
+		auxiliary_renderable.Experience = renderExperiences(w.resume.Experiences, &tmp_experiences, logger)
 	} else {
 		var tmp_experiences string = ""
-		auxiliary_renderable.Experience = tmp_experiences
+		auxiliary_renderable.Experience = &tmp_experiences
 		logger.Warn("No template for experience found")
 	}
+
 	// Render education
 	string_to_search = "education.html.tpl"
 	if index, ok := sliceContains(template_contents, &string_to_search); ok {
 		logger.Info("Rendering education with template " + *template_contents[index])
 		tmp_education := *w.template + "/" + *template_contents[index]
-		auxiliary_renderable.Education = *renderEducations(w.resume.Education, &tmp_education, logger)
+		auxiliary_renderable.Education = renderEducations(w.resume.Education, &tmp_education, logger)
 	} else {
 		var tmp_education string = ""
-		auxiliary_renderable.Education = tmp_education
+		auxiliary_renderable.Education = &tmp_education
 		logger.Warn("No template for education found")
 	}
+
+	// Render extra info
+	string_to_search = "extra.html.tpl"
+	if index, ok := sliceContains(template_contents, &string_to_search); ok {
+		logger.Info("Rendering extra info with template " + *template_contents[index])
+		tmp_extra := *w.template + "/" + *template_contents[index]
+		auxiliary_renderable.ExtraInfo = renderExtraInfos(w.resume.ExtraInfo, &tmp_extra, logger)
+	} else {
+		var tmp_extra string = ""
+		auxiliary_renderable.ExtraInfo = &tmp_extra
+		logger.Warn("No template for extra info found")
+	}
+
+	// Render continous education
+	string_to_search = "continous_education.html.tpl"
+	if index, ok := sliceContains(template_contents, &string_to_search); ok {
+		logger.Info("Rendering continous education with template " + *template_contents[index])
+		tmp_continous_education := *w.template + "/" + *template_contents[index]
+		auxiliary_renderable.ContinousEducation = renderContinousEducations(w.resume.ContinousEducation, &tmp_continous_education, logger)
+	} else {
+		var tmp_continous_education string = ""
+		auxiliary_renderable.ContinousEducation = &tmp_continous_education
+		logger.Warn("No template for continous education found")
+	}
+
 	// Render full resume
 	string_to_search = "full.html.tpl"
 	index, ok := sliceContains(template_contents, &string_to_search)

@@ -1,5 +1,7 @@
 package commander
 
+// Options: prefix (Prefix to add to the CLI commands)
+
 import (
 	"fmt"
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
