@@ -12,6 +12,7 @@
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/mind_language.yaml/badge.svg" />
   <hr />
 </details>
+
 <details name="main">
 <summary>
   <h2>Overview</h2>
@@ -76,7 +77,35 @@
         <hr />
       </details>
     </li>
+    <li>
+      <details name="info">
+        <summary>
+          <h3>What branching strategy is used here?</h3>
+        </summary>
+        <p>
+          For this repository I want to use a branching strategy based on GitFlow mainly because I find GitFlow being easy to understand and implement. GitFlow's main idea is explained in this diagram
+          <br />
+          <img src="https://wac-cdn.atlassian.com/dam/jcr:a13c18d6-94f3-4fc4-84fb-2b8f1b2fd339/01%20How%20it%20works.svg?cdnVersion=1833" alt="Git workflow - GitFlow" />
+          Where we have a main branch and another branch "develop" where we perform the development of the application, and once that is tested and ready for production, a PR to main takes the code to the production branch aka. "main".
+          Since the idea is that both "develop" and "main" are protected branches, for each specific feature a new branch needs to be created to develop that feature.
+          <img src="https://wac-cdn.atlassian.com/dam/jcr:34c86360-8dea-4be4-92f7-6597d4d5bfae/02%20Feature%20branches.svg?cdnVersion=1833" alt="Git workflow - feature branches"/>
+          If you want to learn more, you can visit <a src="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Attlasian's documentation</a> (Keep in mind the idea is not having release branches).
+        </p>
+        <hr />
+      </details>
+    </li>
   </ol>
+</details>
+  <summary>
+    <h2>Workflows statuses</h2>
+  </summary>
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/acknowledge_contributors.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/semantic_release.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/codeql.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/test_app.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/auto_dependabot.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/mind_language.yaml/badge.svg" />
+  <hr />
 </details>
 
 <h2>Contributors</h2>
