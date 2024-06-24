@@ -8,7 +8,6 @@ import (
 func TestNewFullResume(t *testing.T) {
 	type args struct {
 		name        *string
-		template    *string
 		experiences []*Experience
 		education   []*Education
 	}
@@ -22,7 +21,6 @@ func TestNewFullResume(t *testing.T) {
 		name      = "Test Full NewFullResume"
 		arguments = args{
 			name:     &name,
-			template: &name,
 			experiences: []*Experience{
 				{
 					Title:        &name,
@@ -47,7 +45,6 @@ func TestNewFullResume(t *testing.T) {
 		}
 		want = FullResume{
 			Name:        arguments.name,
-			Template:    arguments.template,
 			Experiences: arguments.experiences,
 			Education:   arguments.education,
 		}
@@ -58,7 +55,7 @@ func TestNewFullResume(t *testing.T) {
 		want: &want,
 	}
 	t.Run(*testCase.name, func(t *testing.T) {
-		if got := NewFullResume(testCase.args.name, testCase.args.template, testCase.args.experiences, testCase.args.education); !reflect.DeepEqual(got, testCase.want) {
+		if got := NewFullResume(testCase.args.name,  testCase.args.experiences, testCase.args.education); !reflect.DeepEqual(got, testCase.want) {
 			t.Errorf("NewFullResume() = %v, want %v", got, testCase.want)
 		}
 	})
@@ -66,7 +63,7 @@ func TestNewFullResume(t *testing.T) {
 	arguments = args{}
 	want = FullResume{}
 	t.Run(*testCase.name, func(t *testing.T) {
-		if got := NewFullResume(testCase.args.name, testCase.args.template, testCase.args.experiences, testCase.args.education); !reflect.DeepEqual(got, testCase.want) {
+		if got := NewFullResume(testCase.args.name, testCase.args.experiences, testCase.args.education); !reflect.DeepEqual(got, testCase.want) {
 			t.Errorf("NewFullResume() = %v, want %v", got, testCase.want)
 		}
 	})
