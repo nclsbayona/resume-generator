@@ -1,10 +1,12 @@
 package injector
 
+// Options: input_reading (File to read the resume from) 
+
 import (
-	"os"
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
 	"gopkg.in/yaml.v3"
+	"os"
 )
 
 type sAchievement string
@@ -30,7 +32,6 @@ type sEducation struct {
 
 type sFullResumeYaml struct {
 	input_reading *string
-	template      *string
 	Name          *string        `yaml:"full_name"`
 	Experiences   []*sExperience `yaml:"experiences"`
 	Education     []*sEducation  `yaml:"education"`
@@ -38,11 +39,11 @@ type sFullResumeYaml struct {
 
 func (input *sFullResumeYaml) SetOptions(options ...*string) {
 	input.input_reading = options[0]
-	input.template = options[1]
 }
 
-func NewYaml() ports.Injector {
-	return &sFullResumeYaml{}
+func NewYaml() *ports.Injector {
+	var full_resume ports.Injector = &sFullResumeYaml{}
+	return &full_resume
 }
 
 func (input *sFullResumeYaml) GetFull(logger *domain.Logger) *domain.FullResume {
@@ -58,17 +59,18 @@ func (input *sFullResumeYaml) GetFull(logger *domain.Logger) *domain.FullResume 
 		logger.Error("Error unmarshalling yaml: " + err.Error())
 		return nil
 	}
-	logger.Info("Starting resume generation for " + *input.Name + " using template \"" + *input.template + "\"")
-	
+	logger.Info("Starting resume generation for \"" + *input.Name + "\"")
+
 	logger.Info("Education: ")
 	for _, e := range input.Education {
 		logger.Info("Title: " + *e.Title + " Institution: " + *e.Institution + " Location: " + *e.Location + " Start Date: " + *e.StartDate + " End Date: " + *e.EndDate + " Description: " + *e.Description)
 	}
 	experience := convertExperience(input.Experiences)
-	
+
 	education := convertEducation(input.Education)
-	var tmp_fullresume *domain.FullResume = domain.NewFullResume(input.Name, input.template, experience, education)
-	return tmp_fullresume//usecase.NewPrintResume(tmp_fullresume)
+	var tmp_fullresume *domain.FullResume = domain.NewFullResume(input.Name, experience, education)
+	return tmp_fullresume
+	//usecase.NewPrintResume(tmp_fullresume)
 	//print_usecase.SetGenerator(input.output)
 	//return print_usecase.GetFull(logger)
 }

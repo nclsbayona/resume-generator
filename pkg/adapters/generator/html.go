@@ -1,5 +1,7 @@
 package generator
 
+// Options: template (Template directory to use)
+
 import (
 	"os"
 	"text/template"
@@ -32,8 +34,9 @@ type WriteHTML struct {
 	resume   *domain.FullResume
 }
 
-func NewWriteHTML() ports.Generator {
-	return &WriteHTML{}
+func NewWriteHTML() *ports.Generator {
+	var generator ports.Generator = &WriteHTML{}
+	return &generator
 }
 
 func listTemplateDirectory(template_location *string) ([]*string, error) {
