@@ -1,7 +1,7 @@
 {
     "name": "resume-generator",
     "version": "0.0.0",
-    "description": "A resume generator made with Go and Mustache templating language",
+    "description": "A resume generator made with Go and native templates",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
