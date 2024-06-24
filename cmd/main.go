@@ -7,102 +7,83 @@ import (
 	"github.com/nclsbayona/resume-generator/pkg/adapters/injector"
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
-	"gopkg.in/yaml.v3"
 	"os"
 )
 
-type sProperties struct {
-	PropertiesFileName *string
-	Injector           *string `yaml:"injector"`
-	Generator          *string `yaml:"generator"`
-	Commander          *string `yaml:"commander"`
-	Template           *string `yaml:"template"`
-	InputFile          *string `yaml:"input_file_name"`
-	OutputFile         *string `yaml:"output_file_name"`
-}
-
-func commanderDI(properties *sProperties, injector_implementation ports.Injector, generator_implementation ports.Generator) (commander_implementation ports.Commander) {
-	switch *properties.Commander {
-	case "html":
+func commanderDI(commander_to_use *string, injector_implementation *ports.Injector, generator_implementation *ports.Generator, options ...*string) (commander_implementation *ports.Commander) {
+	switch *commander_to_use {
+	case "cli":
 		commander_implementation = commander.NewCLI()
-		commander_implementation.SetInjector(&injector_implementation)
-		commander_implementation.SetGenerator(&generator_implementation)
+		(*commander_implementation).SetInjector(injector_implementation)
+		(*commander_implementation).SetGenerator(generator_implementation)
+		(*commander_implementation).SetOptions(options...)
+	case "config":
+		commander_implementation = commander.NewConfig()
+		(*commander_implementation).SetInjector(injector_implementation)
+		(*commander_implementation).SetGenerator(generator_implementation)
+		(*commander_implementation).SetOptions(options...)
 	default:
 		commander_implementation = commander.NewCLI()
-		commander_implementation.SetInjector(&injector_implementation)
-		commander_implementation.SetGenerator(&generator_implementation)
+		(*commander_implementation).SetInjector(injector_implementation)
+		(*commander_implementation).SetGenerator(generator_implementation)
+		(*commander_implementation).SetOptions(options...)
 	}
 	return
 }
 
-func generatorDI(properties *sProperties) (generator_implementation ports.Generator) {
-	switch *properties.Generator {
+func generatorDI(generator_to_use *string) (generator_implementation *ports.Generator) {
+	switch *generator_to_use {
 	case "html":
 		generator_implementation = generator.NewWriteHTML()
-		generator_implementation.SetOptions(properties.Template)
 	default:
 		generator_implementation = generator.NewWriteHTML()
-		generator_implementation.SetOptions(properties.Template)
 	}
 	return
 }
 
-func injectorDI(properties *sProperties) (injector_implementation ports.Injector) {
-	switch *properties.Injector {
+func injectorDI(injector_to_use *string) (injector_implementation *ports.Injector) {
+	switch *injector_to_use {
 	case "yaml":
 		injector_implementation = injector.NewYaml()
-		injector_implementation.SetOptions(properties.InputFile, properties.Template)
 	default:
 		injector_implementation = injector.NewYaml()
-		injector_implementation.SetOptions(properties.InputFile, properties.Template)
 	}
 	return
 }
 
-func parseProperties(properties_file *string, logger *domain.Logger) (properties *sProperties) {
-	properties = new(sProperties)
-	properties.PropertiesFileName = properties_file
-	var out []byte
-	out, err := os.ReadFile(*properties_file)
-	if err != nil {
-		logger.Error("Error reading file: " + *properties_file)
-	}
-	err = yaml.Unmarshal(out, properties)
-	if err != nil {
-		logger.Error("Error unmarshalling yaml: " + err.Error())
-		return nil
-	}
-	logger.Info("Properties file " + *properties_file + " read successfully")
-	return
-}
 func main() {
 
 	var logger *domain.Logger = domain.NewLogger(os.Stdout)
-	var config_properties string
+	var commander *string = new(string)
+	var injector *string = new(string)
+	var generator *string = new(string)
+	var output_file *string = new(string)
+	var config_properties []*string = make([]*string, 0)
 
-	flag.StringVar(&config_properties, "c", "config.yaml", "Configuration file. Default is ../config.yaml")
+	flag.StringVar(commander, "c", "cli", "Commander to use. Default is cli")
+	flag.StringVar(injector, "i", "yaml", "Injector to use. Default is yaml")
+	flag.StringVar(generator, "g", "html", "Generator to use. Default is html")
+	flag.StringVar(output_file, "o", "resume.html", "Output file. Default is resume.html")
+	
+	
 	flag.Parse()
 
-	properties := parseProperties(&config_properties, logger)
+	var commander_properties []string = flag.Args()
 
-	logger.Info("Output file: " + *properties.OutputFile)
-	logger.Info("Starting resume generation using template \"" + *properties.Template + "\"")
-
-	file, err := os.Create(*properties.OutputFile)
-	if err != nil {
-		logger.Error("Error creating file " + err.Error())
+	for _, arg := range commander_properties {
+		config_properties = append(config_properties, &arg)
 	}
-	defer file.Close()
-	logger.Info("Output file " + *properties.OutputFile + " created successfully")
-
+	
 	// Here dependency injection is supposed to happen
-	var generator_implementation ports.Generator = generatorDI(properties)
-	var injector_implementation ports.Injector = injectorDI(properties)
-	var commander_implementation ports.Commander = commanderDI(properties, injector_implementation, generator_implementation)
+	var generator_implementation *ports.Generator = generatorDI(generator)
+	var injector_implementation *ports.Injector = injectorDI(injector)
+	var commander_implementation *ports.Commander = commanderDI(commander, injector_implementation, generator_implementation, config_properties...)
 	//
 
-	if _, err = file.WriteString(*commander_implementation.RunCommand(logger)); err != nil {
-		logger.Error("Resume generation failed!")
+	file, err := os.Create(*output_file)
+	if err != nil {
+		logger.Fatal("Error creating output file: " + err.Error())
 	}
-	logger.Info("Resume generation complete")
+	defer file.Close()
+	file.WriteString(*(*commander_implementation).RunCommand(logger))
 }
