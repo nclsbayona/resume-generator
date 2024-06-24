@@ -1,4 +1,16 @@
 full_name: "John Doe"
+extra_info: 
+  - label: "Email"
+    value: "email@abc.com"
+  - label: "Phone"
+    value: "123-456-7890"
+  - label: "LinkedIn"
+    value: "linkedin.com/in/johndoe"
+  - label: "GitHub"
+    value: "github.com/johndoe"
+  - label: "Website"
+    value: "johndoe.com"
+summary: "I am a software engineer with experience in web development and data analysis."
 education:
   - title: "Bachelor of Science in Computer Science"
     institution: "University of California"
@@ -25,3 +37,16 @@ experiences:
     achievements:
       - "Achievement 3"
       - "Achievement 4"
+continous_education:
+  - title: "Online Course on Machine Learning"
+    institution: "Coursera"
+    location: "Online"
+    date: "2021-02-01"
+    expire: "2023-03-01"
+    summary: "I studied some concepts on machine learning"
+  - title: "Online Course on Web Development"
+    institution: "Udemy"
+    location: "Online"
+    date: "2021-04-01"
+    expire: "2024-05-01"
+    summary: "I studied some concepts on web development"
