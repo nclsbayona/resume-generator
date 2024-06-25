@@ -9,6 +9,7 @@
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/codeql.yaml/badge.svg" />
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/trivy_scan.yaml/badge.svg" />
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/osv_scanner.yaml/badge.svg" />
+  <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/codacy_scanner.yaml/badge.svg" />
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/test_app.yaml/badge.svg" />
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/auto_dependabot.yaml/badge.svg" />
   <img src="https://github.com/nclsbayona/resume-generator/actions/workflows/mind_language.yaml/badge.svg" />
