@@ -14,12 +14,26 @@ name: OSV-Scanner
 on:
   pull_request:
     branches: [ "main", "develop" ]
+    paths:
+      - '**/*.go'
+      - 'Dockerfile'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Makefile'
+      - 'package.json'
   merge_group:
     branches: [ "main", "develop" ]
   schedule:
     - cron: '00 20 * * 1'
   push:
     branches: [ "main", "develop" ]
+    paths:
+      - '**/*.go'
+      - 'Dockerfile'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Makefile'
+      - 'package.json'
   workflow_dispatch:
 
 permissions:

@@ -1,4 +1,5 @@
 name: Semantic Release Workflow
+
 on:
     schedule:
         - cron: '0 0 1 * *'
@@ -7,6 +8,12 @@ on:
             - main
         paths:
             - '.releaserc'
+            - '**/*.go'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'Makefile'
+            - 'package.json'
 
 permissions:
   issues: write

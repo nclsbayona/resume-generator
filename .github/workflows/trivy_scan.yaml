@@ -3,6 +3,13 @@ name: Trivy Container Security Scan
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - '**/*.go'
+      - 'Dockerfile'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Makefile'
+      - 'package.json'
   schedule:
     - cron: '42 10 * * 0'
   workflow_dispatch:
