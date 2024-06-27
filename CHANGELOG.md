@@ -4,6 +4,20 @@
 
 #### This project tries to fully adhere to [Semantic Versioning](https://semver.org) and [Conventional Commits](https://www.conventionalcommits.org).
 
+# [1.1.0](https://github.com/nclsbayona/resume-generator/compare/v1.0.0...v1.1.0) (2024-06-27)
+
+
+### Bug Fixes
+
+* :clown_face: Update main ([9f71e6a](https://github.com/nclsbayona/resume-generator/commit/9f71e6a5aaec9a2028e5312072c648194e819f85))
+* :monocle_face: Update adapters ([982c732](https://github.com/nclsbayona/resume-generator/commit/982c7326821376b449d940a8275eed0341c1fce0))
+
+
+### Features
+
+* :sparkles: AAdd new adapter ([6918de8](https://github.com/nclsbayona/resume-generator/commit/6918de8eea500dea7b7f39b388b2849e76afa7a2))
+* :sparkles: Add more info to resume ([c73a7ae](https://github.com/nclsbayona/resume-generator/commit/c73a7aea37ede267ce814e20c34746ecea6d5f6d))
+
 # 1.0.0 (2024-06-22)
 
 
