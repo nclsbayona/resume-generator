@@ -4,6 +4,13 @@
 
 #### This project tries to fully adhere to [Semantic Versioning](https://semver.org) and [Conventional Commits](https://www.conventionalcommits.org).
 
+## [1.1.1](https://github.com/nclsbayona/resume-generator/compare/v1.1.0...v1.1.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* :pencil2: Fix Dockerfile ([a139ad3](https://github.com/nclsbayona/resume-generator/commit/a139ad3302a45f9ae672de8e878b3bbd7dbc500f))
+
 # [1.1.0](https://github.com/nclsbayona/resume-generator/compare/v1.0.0...v1.1.0) (2024-06-27)
 
 
