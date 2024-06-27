@@ -8,13 +8,11 @@ username := $(shell echo $(repository_name) | awk -F/ '{print $1}')
 release: test
 	echo "New release"
 	echo "Release of version: ${version}"
-	docker build --target prod -t "${registry_url}/${username}/${repository_name}:${version}" -f Dockerfile .
-	docker tag "${registry_url}/${username}/${repository_name}:${version}" "${registry_url}/${username}/${repository_name}:latest"
 	echo "${password}" | docker login -u "${username}" --password-stdin "${registry_url}"
-	docker push "${registry_url}/${username}/${repository_name}:${version}"
-	docker push "${registry_url}/${username}/${repository_name}:latest"
+	docker buildx build --progress=plain --target prod --tag "${registry_url}/${username}/${repository_name}:${version}" --push --platform linux/amd64,linux/arm/v7,linux/arm64 .
+	docker buildx build --progress=plain --target prod --tag "${registry_url}/${username}/${repository_name}:latest" --push --platform linux/amd64,linux/arm/v7,linux/arm64 .
 	docker logout "${registry_url}"
 
 test:
 	echo "Building test container"
-	docker build --target dev-builder --progress=plain -t "test" -f Dockerfile .
+	docker buildx build --progress=plain --target dev-builder --tag test --platform linux/amd64,linux/arm/v7,linux/arm64 .

@@ -26,11 +26,11 @@ jobs:
     release:
         runs-on: ubuntu-latest
         steps:
-            - name: Setup-docker
-              uses: crazy-max/ghaction-setup-docker@v3.3.0
             - name: Checkout repository
               uses: actions/checkout@v4
               with:
                 persist-credentials: false
+            - name: Setup docker buildx
+              uses: crazy-max/ghaction-docker-buildx@v1
             - name: Run the tests
               run: make test
