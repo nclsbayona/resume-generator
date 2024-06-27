@@ -20,6 +20,6 @@ FROM docker.io/alpine:3 as prod
 USER 35000
 WORKDIR /app
 COPY --from=dev-builder /app/main .
-ENTRYPOINT ["./main","-c"]
+ENTRYPOINT ["./main","-c","config","-i","yaml","-o","html"]
 CMD ["config.yaml"]
 # Keep in mind you would need to add your templates to the running container
