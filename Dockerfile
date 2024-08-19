@@ -5,11 +5,16 @@
 FROM docker.io/golang:1.22-alpine as dev-builder
 WORKDIR /app
 COPY cmd ./cmd
-COPY pkg ./pkg
+COPY domain ./domain
+COPY ports ./ports
+COPY usecase ./usecase
+COPY adapters ./adapters
 COPY go.mod .
 COPY go.sum .
 RUN go mod tidy
-RUN go test ./pkg/**/* -coverprofile=coverage.out
+RUN go test ./domain/*.go -coverprofile=coverage-domain.out
+RUN go test ./ports/*.go -coverprofile=coverage-ports.out
+RUN go test ./usecase/*.go -coverprofile=coverage-usecase.out
 RUN go build -o main ./cmd/main.go
 
 
