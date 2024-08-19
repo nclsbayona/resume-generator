@@ -4,6 +4,8 @@
 
 #### This project tries to fully adhere to [Semantic Versioning](https://semver.org) and [Conventional Commits](https://www.conventionalcommits.org).
 
+# [1.2.0](https://github.com/nclsbayona/resume-generator/compare/v1.1.4...v1.2.0) (2024-08-19)
+
 ## [1.1.4](https://github.com/nclsbayona/resume-generator/compare/v1.1.3...v1.1.4) (2024-08-19)
 
 ## [1.1.3](https://github.com/nclsbayona/resume-generator/compare/v1.1.2...v1.1.3) (2024-08-01)
