@@ -6,6 +6,7 @@
 ##########
 
 username := $(shell echo $(repository_name) | awk -F/ '{print $1}')
+
 release: test
 	echo "New release"
 	echo "Release of version: ${version}"
