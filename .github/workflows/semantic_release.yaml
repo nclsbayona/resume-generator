@@ -49,4 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v4
-      - run: curl "https://proxy.golang.org/github.com/${{github.repository}}/@v/$(git describe HEAD --tags --abbrev=0).info"
+      - name: Get latest tag
+        id: get_tag
+        run: echo "TAG=$(git describe HEAD --tags --abbrev=0)" >> $GITHUB_ENV
+      - run: curl "https://proxy.golang.org/github.com/${{github.repository}}/@v/$TAG.info"
