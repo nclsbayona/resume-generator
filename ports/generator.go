@@ -1,7 +1,7 @@
 package ports
 
 import (
-	"github.com/nclsbayona/resume-generator/pkg/core/domain"
+	"github.com/nclsbayona/resume-generator/domain"
 )
 
 type Generator interface {

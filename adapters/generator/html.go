@@ -3,10 +3,11 @@ package generator
 // Options: template (Template directory to use)
 
 import (
-	"github.com/nclsbayona/resume-generator/pkg/core/domain"
-	"github.com/nclsbayona/resume-generator/pkg/core/ports"
 	"os"
 	"text/template"
+
+	"github.com/nclsbayona/resume-generator/domain"
+	"github.com/nclsbayona/resume-generator/ports"
 )
 
 type AuxiliaryWriter struct {

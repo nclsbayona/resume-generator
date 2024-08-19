@@ -3,10 +3,11 @@ package injector
 // Options: input_reading (File to read the resume from)
 
 import (
-	"github.com/nclsbayona/resume-generator/pkg/core/domain"
-	"github.com/nclsbayona/resume-generator/pkg/core/ports"
-	"gopkg.in/yaml.v3"
 	"os"
+
+	"github.com/nclsbayona/resume-generator/domain"
+	"github.com/nclsbayona/resume-generator/ports"
+	"gopkg.in/yaml.v3"
 )
 
 type sAchievement string
