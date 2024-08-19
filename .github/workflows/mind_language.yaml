@@ -1,5 +1,4 @@
 name: Mind your language
-
 on:
   issues:
     types:
@@ -13,15 +12,12 @@ on:
     types:
       - created
       - edited
-
 permissions:
-    issues: write
-    pull-requests: write
-
+  issues: write
+  pull-requests: write
 concurrency:
-    group: "language-check"
-    cancel-in-progress: false
-
+  group: "language-check"
+  cancel-in-progress: false
 jobs:
   echo_issue_comment:
     runs-on: ubuntu-latest

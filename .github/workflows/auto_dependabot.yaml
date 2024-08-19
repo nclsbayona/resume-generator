@@ -1,14 +1,11 @@
 name: Dependabot reviewer
-
-on: 
-    pull_request:
-        branches: 
-            - 'main'
-
+on:
+  pull_request:
+    branches:
+      - 'main'
 permissions:
   pull-requests: write
   contents: write
-
 jobs:
   review-dependabot-pr:
     runs-on: ubuntu-latest

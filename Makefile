@@ -4,6 +4,7 @@
 # Variable registry_url should be passed as an argument to the make command as follows: make registry_url=docker.io
 # Variable repository_name should be passed as an argument to the make command as follows: make repository_name=repository
 ##########
+
 username := $(shell echo $(repository_name) | awk -F/ '{print $1}')
 release: test
 	echo "New release"

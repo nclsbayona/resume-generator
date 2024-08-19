@@ -10,10 +10,9 @@
 # see https://google.github.io/osv-scanner/github-action/
 
 name: OSV-Scanner
-
 on:
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
     paths:
       - '**/*.go'
       - 'Dockerfile'
@@ -22,11 +21,11 @@ on:
       - 'Makefile'
       - 'package.json'
   merge_group:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
   schedule:
     - cron: '00 20 * * 1'
   push:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
     paths:
       - '**/*.go'
       - 'Dockerfile'
@@ -35,13 +34,11 @@ on:
       - 'Makefile'
       - 'package.json'
   workflow_dispatch:
-
 permissions:
   # Require writing security events to upload SARIF file to security tab
   security-events: write
   # Read commit contents
   contents: read
-
 jobs:
   scan-scheduled:
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}

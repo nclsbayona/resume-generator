@@ -1,51 +1,52 @@
 name: Semantic Release Workflow
-
 on:
-    schedule:
-        - cron: '0 0 1 * *'
-    push:
-        branches:
-            - main
-        paths:
-            - '.releaserc'
-            - '**/*.go'
-            - 'Dockerfile'
-            - 'go.mod'
-            - 'go.sum'
-            - 'Makefile'
-            - 'package.json'
-
+  schedule:
+    - cron: '0 0 1 * *'
+  push:
+    branches:
+      - main
+    paths:
+      - '.releaserc'
+      - '**/*.go'
+      - 'Dockerfile'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Makefile'
+      - 'package.json'
 permissions:
   issues: write
   packages: write
   id-token: write
   contents: write
   pull-requests: write
-  
 concurrency:
-    group: "release"
-    cancel-in-progress: false
-  
+  group: "release"
+  cancel-in-progress: false
 jobs:
-    release:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-              with:
-                persist-credentials: false
-            - name: Setup docker buildx
-              uses: crazy-max/ghaction-docker-buildx@v3
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: '20'
-            - name: Install dependencies
-              run: npm install
-            - name: Semantic Release Run
-              env:
-                GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-                CONTAINER_REGISTRY: ghcr.io
-                CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-                CONTAINER_REGISTRY_REPOSITORY: ${{ github.repository }}
-              run: npx semantic-release
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup docker buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Semantic Release Run
+        env:
+          GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          CONTAINER_REGISTRY: ghcr.io
+          CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          CONTAINER_REGISTRY_REPOSITORY: ${{ github.repository }}
+        run: npx semantic-release
+  publish-go:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
+      - run: curl "https://proxy.golang.org/github.com/${{github.repository}}/@v/$(git describe HEAD --tags --abbrev=0).info"
