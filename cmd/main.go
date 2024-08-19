@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/nclsbayona/resume-generator/pkg/adapters/commander"
-	"github.com/nclsbayona/resume-generator/pkg/adapters/generator"
-	"github.com/nclsbayona/resume-generator/pkg/adapters/injector"
+	"github.com/nclsbayona/resume-generator/cmd/adapters/commander"
+	"github.com/nclsbayona/resume-generator/cmd/adapters/generator"
+	"github.com/nclsbayona/resume-generator/cmd/adapters/injector"
 	"github.com/nclsbayona/resume-generator/pkg/core/domain"
 	"github.com/nclsbayona/resume-generator/pkg/core/ports"
 	"os"
